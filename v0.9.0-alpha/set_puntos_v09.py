@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script mejorado para modificar los puntos en Voice of the Void
-Modifica tanto data.sav como TODOS los archivos de partida individuales
+Script EXPERIMENTAL para VotV 0.9.0 alpha (UNSTABLE)
 
-Uso: python set_puntos.py <puntos_deseados>
-Ejemplo: python set_puntos.py 50000
+ADVERTENCIA: La versión 0.9.0 alpha tiene una estructura de guardado diferente.
+Este script solo modifica data.sav. Los archivos de partida individuales
+de v0.9 tienen estructura desconocida.
 
-NOTA: Este script ahora modifica:
-  1. data.sav (total_points_42 y points_spent_43)
-  2. Todos los archivos de partida s_*.sav (propiedad Points)
+Uso: python set_puntos_v09.py <puntos_deseados>
 """
 
 import struct
@@ -24,7 +22,6 @@ def hacer_backup(archivo):
     saves_dir = os.path.dirname(archivo)
     backup_dir = os.path.join(saves_dir, "backups")
     
-    # Crear carpeta de backups si no existe
     if not os.path.exists(backup_dir):
         os.makedirs(backup_dir)
     
@@ -37,7 +34,7 @@ def hacer_backup(archivo):
     return backup
 
 def buscar_propiedad_int(data, nombre_propiedad):
-    """Busca una propiedad IntProperty por nombre y retorna su posición y valor"""
+    """Busca una propiedad IntProperty por nombre"""
     nombre_bytes = nombre_propiedad.encode('ascii')
     pos_nombre = data.find(nombre_bytes)
     
@@ -67,9 +64,8 @@ def buscar_propiedad_int(data, nombre_propiedad):
     return None, None
 
 def leer_puntos(archivo):
-    """Lee los puntos actuales del archivo data.sav"""
+    """Lee los puntos actuales de data.sav"""
     if not os.path.exists(archivo):
-        print(f"[ERROR] No se encontro el archivo {archivo}")
         return None
     
     with open(archivo, 'rb') as f:
@@ -83,43 +79,10 @@ def leer_puntos(archivo):
         'points_spent': {'posicion': pos_spent, 'valor': valor_spent}
     }
 
-def modificar_propiedad_int(data, nombre_propiedad, nuevo_valor):
-    """Modifica una propiedad IntProperty en los datos"""
-    pos, valor_actual = buscar_propiedad_int(data, nombre_propiedad)
-    if pos is None:
-        return data, False, None
+def establecer_puntos_data_sav(archivo, puntos_disponibles):
+    """Modifica SOLO data.sav (archivos de partida v0.9 no soportados aún)"""
     
-    nuevo_bytes = struct.pack('<i', nuevo_valor)
-    data[pos:pos+4] = nuevo_bytes
-    return data, True, valor_actual
-
-def modificar_save_individual(archivo, puntos):
-    """Modifica un archivo de save individual (propiedad Points)"""
-    if not os.path.exists(archivo):
-        return False, "Archivo no encontrado"
-    
-    with open(archivo, 'rb') as f:
-        data = bytearray(f.read())
-    
-    # Buscar y modificar la propiedad 'Points'
-    data, modificado, valor_anterior = modificar_propiedad_int(data, 'Points', puntos)
-    
-    if not modificado:
-        return False, "No se encontró propiedad Points"
-    
-    # Crear backup y guardar
-    hacer_backup(archivo)
-    with open(archivo, 'wb') as f:
-        f.write(data)
-    
-    return True, f"{valor_anterior} -> {puntos}"
-
-def establecer_puntos_disponibles(archivo, puntos_disponibles):
-    """Establece los puntos disponibles del jugador en TODOS los saves"""
-    
-    saves_dir = os.path.dirname(archivo)
-    
-    print("\n[1/3] Leyendo data.sav...")
+    print("\n[1/2] Leyendo data.sav...")
     valores = leer_puntos(archivo)
     
     if valores is None or valores['total_points']['valor'] is None:
@@ -130,13 +93,11 @@ def establecer_puntos_disponibles(archivo, puntos_disponibles):
     print(f"      Points Spent: {valores['points_spent']['valor']}")
     print(f"      Disponibles: {valores['total_points']['valor'] - valores['points_spent']['valor']}")
     
-    # Calcular nuevo total
     nuevo_total = valores['points_spent']['valor'] + puntos_disponibles
     
     print(f"\n      Nuevo valor: {puntos_disponibles} puntos disponibles")
     
-    # Modificar data.sav
-    print(f"\n[2/3] Modificando data.sav...")
+    print(f"\n[2/2] Modificando data.sav...")
     hacer_backup(archivo)
     
     with open(archivo, 'rb') as f:
@@ -151,49 +112,28 @@ def establecer_puntos_disponibles(archivo, puntos_disponibles):
     
     print(f"      OK: Total Points establecido en {nuevo_total}")
     
-    # Modificar archivos de partida individuales
-    print(f"\n[3/3] Modificando archivos de partida...")
-    patron = os.path.join(saves_dir, "s_*.sav")
-    archivos_save = [f for f in glob.glob(patron) if not '.backup_' in f]
-    
-    if archivos_save:
-        modificados = 0
-        omitidos = 0
-        for archivo_save in sorted(archivos_save):
-            nombre = os.path.basename(archivo_save)
-            exito, mensaje = modificar_save_individual(archivo_save, puntos_disponibles)
-            if exito:
-                modificados += 1
-            else:
-                omitidos += 1
-        
-        print(f"      OK: {modificados} partidas modificadas")
-        if omitidos > 0:
-            print(f"      NOTA: {omitidos} partidas omitidas (incompatibles con v0.9.0 alpha)")
-    else:
-        print(f"      No se encontraron partidas individuales")
-    
-    print(f"\n{'='*60}")
-    print(f"[EXITO] Puntos modificados en todos los saves!")
-    print(f"{'='*60}")
-    print(f"\nAhora tienes {puntos_disponibles} puntos en todas tus partidas")
-    print(f"\nBackups creados en: {saves_dir}")
+    print(f"\n{'='*70}")
+    print(f"[EXITO] data.sav modificado!")
+    print(f"{'='*70}")
+    print(f"\nPuntos establecidos en data.sav: {puntos_disponibles}")
+    print(f"\n⚠️  ADVERTENCIA: Los archivos de partida de v0.9.0 alpha")
+    print(f"    tienen estructura desconocida y NO fueron modificados.")
+    print(f"    Los puntos pueden NO reflejarse en el juego.")
     
     return True
 
 if __name__ == "__main__":
     archivo = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames\data.sav"
     
-    print("="*60)
-    print("  MODIFICADOR DE PUNTOS - VOICE OF THE VOID")
-    print("="*60)
+    print("="*70)
+    print("  VotV Points Editor - VERSION 0.9.0 ALPHA (EXPERIMENTAL)")
+    print("="*70)
     
     if not os.path.exists(archivo):
         print(f"\n[ERROR] No se encontro data.sav")
         print(f"Ruta esperada: {archivo}")
         sys.exit(1)
     
-    # Leer valores actuales primero
     valores = leer_puntos(archivo)
     if valores:
         print(f"\n[INFO] Valores actuales:")
@@ -201,13 +141,11 @@ if __name__ == "__main__":
         print(f"       Points Spent: {valores['points_spent']['valor']}")
         print(f"       Disponibles: {valores['total_points']['valor'] - valores['points_spent']['valor']}")
     
-    # Verificar si se pasó un argumento
     if len(sys.argv) < 2:
-        print(f"\n[INFO] Uso: python set_puntos.py <puntos_deseados>")
+        print(f"\n[INFO] Uso: python set_puntos_v09.py <puntos_deseados>")
         print(f"\nEjemplos:")
-        print(f"  python set_puntos.py 50000   - Establecer 50,000 puntos")
-        print(f"  python set_puntos.py 999999  - Establecer 999,999 puntos")
-        print(f"  python set_puntos.py 0       - Establecer 0 puntos")
+        print(f"  python set_puntos_v09.py 50000")
+        print(f"  python set_puntos_v09.py 999999")
         sys.exit(0)
     
     try:
@@ -217,17 +155,14 @@ if __name__ == "__main__":
             print(f"\n[ERROR] Los puntos no pueden ser negativos")
             sys.exit(1)
         
-        if puntos > 10000000:
-            print(f"\n[AVISO] {puntos} puntos es un valor muy alto")
-            print(f"         Esto podria causar problemas en el juego")
-        
-        establecer_puntos_disponibles(archivo, puntos)
+        establecer_puntos_data_sav(archivo, puntos)
         
     except ValueError:
         print(f"\n[ERROR] '{sys.argv[1]}' no es un numero valido")
-        print(f"[INFO] Uso: python set_puntos.py <numero>")
         sys.exit(1)
     except Exception as e:
         print(f"\n[ERROR] {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
 

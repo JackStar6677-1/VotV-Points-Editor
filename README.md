@@ -1,188 +1,159 @@
 # VotV Points Editor
 
-Editor de puntos para **[Voices of the Void](https://mrdrnose.itch.io/votv)** - Alpha 0.9.0
+Editor de puntos para **[Voices of the Void](https://mrdrnose.itch.io/votv)**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
-![VotV Version](https://img.shields.io/badge/VotV-0.9.0-green.svg)
+
+## 🎯 Elige tu Versión
+
+Este proyecto está organizado en dos versiones según la versión de VotV que uses:
+
+### ✅ [Versión 0.8.x](v0.8.x/) - RECOMENDADO
+- **Estado**: ✅ TOTALMENTE FUNCIONAL
+- **Compatible con**: VotV Alpha 0.8.x (0.8.0, 0.8.1, 0.8.2, etc.)
+- **Características**: 
+  - Modifica `data.sav` y todos los archivos de partida
+  - Los cambios se reflejan perfectamente en el juego
+  - Incluye scripts .bat para Windows
+
+📂 **[IR A v0.8.x →](v0.8.x/)**
+
+### ⚠️ [Versión 0.9.0 Alpha](v0.9.0-alpha/) - EXPERIMENTAL
+- **Estado**: ⚠️ EXPERIMENTAL / NO FUNCIONAL
+- **Compatible con**: VotV Alpha 0.9.0 (UNSTABLE)
+- **Problema**: 
+  - La estructura de guardado cambió completamente
+  - Solo modifica `data.sav`
+  - Los puntos NO se reflejan en el juego
+  - En investigación
+
+📂 **[IR A v0.9.0-alpha →](v0.9.0-alpha/)**
 
 ## 📋 Descripción
 
-Una herramienta simple y segura para modificar los puntos del jugador en Voices of the Void. 
+Una herramienta simple y segura para modificar los puntos del jugador en Voices of the Void.
 
-**Actualización importante:** Esta versión corrige el problema donde los puntos no se guardaban correctamente. Ahora modifica tanto `data.sav` como todos los archivos de partida individuales (`s_*.sav`), asegurando que los cambios se reflejen en el juego.
+**Si tienes VotV 0.8.x** → Usa la [versión 0.8.x](v0.8.x/) que funciona perfectamente.
 
-> **Problema corregido:** La versión anterior solo modificaba `data.sav`, pero el juego lee los puntos desde los archivos de partida individuales. Ahora se modifican ambos.
+**Si tienes VotV 0.9.0 alpha** → Por ahora, considera usar VotV 0.8.2c o espera a que investiguemos el nuevo formato.
 
-## ✨ Características
+## ✨ Características (v0.8.x)
 
 - ✅ **Seguro**: Crea backups automáticos antes de cualquier modificación
 - ✅ **Completo**: Modifica tanto `data.sav` como TODOS los archivos de partida
 - ✅ **Simple**: Un solo comando para modificar tus puntos
 - ✅ **Informativo**: Muestra valores actuales y confirma cambios
 - ✅ **Sin dependencias**: Solo usa librerías estándar de Python
-- ✅ **Multiplataforma**: Funciona en cualquier sistema con Python 3.7+
+- ✅ **Scripts Windows**: Acceso rápido con doble click (.bat)
 
 ## 📥 Instalación
 
-### Requisitos previos
+### Requisitos
 - Python 3.7 o superior
-- **Voices of the Void Alpha 0.9.0** ([Descargar aquí](https://mrdrnose.itch.io/votv))
-  - **IMPORTANTE**: Esta herramienta está diseñada específicamente para la versión 0.9.0 del juego
-  - No garantiza compatibilidad con otras versiones
+- **Voices of the Void** ([Descargar aquí](https://mrdrnose.itch.io/votv))
 
 ### Pasos
 
 1. Clona este repositorio:
 ```bash
-git clone https://github.com/TU_USUARIO/VotV-Points-Editor.git
+git clone https://github.com/JackStar6677-1/VotV-Points-Editor.git
 cd VotV-Points-Editor
 ```
 
-2. ¡Listo! No requiere instalación de dependencias adicionales.
+2. Elige tu versión:
+   - **VotV 0.8.x** → `cd v0.8.x`
+   - **VotV 0.9.0 alpha** → `cd v0.9.0-alpha` (experimental)
 
-## 🚀 Uso
+3. ¡Listo! No requiere dependencias adicionales.
 
-### Método ultra-rápido (Windows)
+## 🚀 Uso Rápido
 
-Doble click en:
-- **`PRUEBA_RAPIDA.bat`**: Establece 50,000 puntos automáticamente
-- **`VERIFICAR_PUNTOS.bat`**: Muestra los puntos actuales en todos los saves
-
-### Método rápido (Línea de comandos)
+### Para VotV 0.8.x (RECOMENDADO)
 
 ```bash
-python set_puntos.py <cantidad_de_puntos>
-```
+cd v0.8.x
 
-**Ejemplos:**
-```bash
-# Establecer 50,000 puntos
+# Método 1: Windows (doble click)
+PRUEBA_RAPIDA.bat
+
+# Método 2: Línea de comandos
 python set_puntos.py 50000
-
-# Establecer 999,999 puntos
-python set_puntos.py 999999
-
-# Establecer 2,000,000 puntos
-python set_puntos.py 2000000
-
-# Ver valores actuales (sin modificar)
-python set_puntos.py
 ```
 
-### Método interactivo
+📖 **[Documentación completa v0.8.x →](v0.8.x/README.md)**
+
+### Para VotV 0.9.0 alpha (EXPERIMENTAL)
 
 ```bash
-python modificar_puntos.py
+cd v0.9.0-alpha
+
+# Script experimental (solo modifica data.sav)
+python set_puntos_v09.py 50000
 ```
 
-Este método te permite:
-1. Ver valores actuales
-2. Modificar Total Points
-3. Modificar Points Spent
-4. Establecer puntos disponibles específicos
+⚠️ **Advertencia**: Los cambios pueden NO reflejarse en el juego.
 
-## 📖 Cómo funciona
+📖 **[Documentación completa v0.9.0 →](v0.9.0-alpha/README.md)**
 
-Voices of the Void almacena los puntos en **DOS ubicaciones**:
+## 📖 Cómo funciona (v0.8.x)
 
-1. **`data.sav`** (archivo global):
-   - **`total_points_42`**: Total de puntos ganados históricamente
-   - **`points_spent_43`**: Puntos que ya has gastado
-   - Disponibles: `total_points - points_spent`
+Para más detalles técnicos, consulta el README de cada versión:
+- **[Documentación técnica v0.8.x](v0.8.x/README.md)**
+- **[Estado de investigación v0.9.0](v0.9.0-alpha/README.md)**
 
-2. **Archivos de partida individuales** (`s_*.sav`):
-   - Cada partida tiene su propia propiedad **`Points`**
-   - **Este es el valor que el juego lee cuando cargas una partida**
-
-El script modifica **AMBOS** tipos de archivos para asegurar que los cambios se reflejen correctamente en el juego:
-- Ajusta `total_points_42` en `data.sav`
-- Actualiza `Points` en todos los archivos de partida (`s_*.sav`)
-
-## 📁 Ubicación del archivo
-
-El archivo `data.sav` se encuentra en:
+## 📁 Ubicación de archivos
 
 ```
-Windows: %LOCALAPPDATA%\VotV\Saved\SaveGames\data.sav
+C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
 ```
 
-Ruta completa típica:
-```
-C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\data.sav
-```
-
-## ⚠️ Precauciones
-
-- **Cierra el juego** antes de modificar los archivos
-- **No modifiques** archivos mientras el juego esté abierto
-- Los **backups se crean automáticamente** en la carpeta `SaveGames/backups/`
-- Si algo sale mal, puedes restaurar el backup manualmente
-- **Compatible solo con Voices of the Void Alpha 0.9.0**
-
-## 🔧 Restaurar un backup
-
-Si necesitas restaurar:
-
-1. Cierra el juego
-2. Ve a la carpeta `C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\backups\`
-3. Copia el backup que deseas restaurar
-4. Pégalo en la carpeta superior (`SaveGames`)
-5. Renombra el archivo eliminando la parte `.backup_YYYYMMDD_HHMMSS`
-6. Inicia el juego
+Los backups se guardan automáticamente en `SaveGames/backups/`
 
 ## 🐛 Solución de problemas
 
-### El script no encuentra data.sav
+Para problemas específicos, consulta el README de tu versión:
+- **[Solución de problemas v0.8.x](v0.8.x/README.md)**
+- **[Estado y limitaciones v0.9.0](v0.9.0-alpha/README.md)**
 
-Verifica la ruta. En algunos casos puede estar en:
+### Problemas comunes:
+
+**Error de permisos**: Ejecuta PowerShell o CMD como administrador
+
+**Archivo no encontrado**: Verifica que la ruta sea correcta:
 ```
 %LOCALAPPDATA%\VotV\Saved\SaveGames\
 ```
-
-### Los puntos no cambian en el juego
-
-Esta versión corregida debería solucionar este problema. Asegúrate de:
-1. Cerrar el juego completamente antes de ejecutar el script
-2. El script mostró: "[EXITO] Puntos modificados en todos los saves!"
-3. El script indica que modificó archivos de partida (ejemplo: "7 partidas modificadas")
-4. Iniciar el juego después de la modificación
-
-Si aún tienes problemas, ejecuta `python buscar_puntos_todos_saves.py` para diagnosticar.
-
-### Error de permisos
-
-Ejecuta PowerShell o CMD como administrador si tienes problemas de permisos.
 
 ## 📝 Estructura del proyecto
 
 ```
 VotV-Points-Editor/
 │
-├── set_puntos.py                    # Script principal CORREGIDO (línea de comandos)
-├── modificar_puntos.py              # Script interactivo con menú (ACTUALIZADO)
-├── buscar_puntos_todos_saves.py     # Herramienta de diagnóstico
-├── set_puntos_todos_saves.py        # Versión standalone alternativa
-├── PRUEBA_RAPIDA.bat                # Prueba rápida: 50,000 puntos (Windows)
-├── VERIFICAR_PUNTOS.bat             # Verificar puntos actuales (Windows)
-├── SOLUCION_PROBLEMA.md             # Documentación técnica del problema corregido
-├── README.md                        # Este archivo
+├── v0.8.x/                          # VERSIÓN ESTABLE ✅
+│   ├── set_puntos.py                   # Script principal
+│   ├── modificar_puntos.py             # Script interactivo
+│   ├── buscar_puntos_todos_saves.py    # Diagnóstico
+│   ├── set_puntos_todos_saves.py       # Versión alternativa
+│   ├── PRUEBA_RAPIDA.bat               # Windows: 50,000 puntos
+│   ├── VERIFICAR_PUNTOS.bat            # Windows: Verificar
+│   └── README.md                       # Documentación v0.8.x
+│
+├── v0.9.0-alpha/                    # VERSIÓN EXPERIMENTAL ⚠️
+│   ├── set_puntos_v09.py               # Script experimental
+│   └── README.md                       # Documentación v0.9.0
+│
+├── README.md                        # Este archivo (índice)
 ├── LICENSE                          # Licencia MIT
-└── .gitignore                       # Archivos a ignorar en git
+├── requirements.txt                 # Sin dependencias externas
+└── .gitignore                       # Archivos ignorados
 ```
 
-### Scripts disponibles:
+### 📂 Carpetas:
 
-**Para Windows (doble click):**
-- **`PRUEBA_RAPIDA.bat`**: Establece 50,000 puntos en todas las partidas
-- **`VERIFICAR_PUNTOS.bat`**: Analiza y muestra los puntos en todos los archivos
-
-**Línea de comandos:**
-- **`set_puntos.py`**: Script principal recomendado (CORREGIDO)
-- **`modificar_puntos.py`**: Versión interactiva con menú (ACTUALIZADO)
-- **`buscar_puntos_todos_saves.py`**: Herramienta de diagnóstico detallada
-- **`set_puntos_todos_saves.py`**: Versión standalone alternativa
+- **`v0.8.x/`**: Versión totalmente funcional para VotV 0.8.x
+- **`v0.9.0-alpha/`**: Versión experimental para VotV 0.9.0 (en desarrollo)
 
 ## 🤝 Contribuir
 
@@ -204,7 +175,13 @@ Este proyecto es una herramienta de terceros **no oficial**. No está afiliado, 
 
 **Voices of the Void** y todos sus derechos pertenecen a [mrdrnose](https://mrdrnose.itch.io/votv).
 
-Usa esta herramienta bajo tu propio riesgo. Siempre haz backups de tus archivos de guardado. Esta herramienta está diseñada específicamente para **Voices of the Void Alpha 0.9.0** y puede no funcionar con otras versiones.
+Usa esta herramienta bajo tu propio riesgo. Siempre haz backups de tus archivos de guardado.
+
+**Compatibilidad de Versiones**:
+- ✅ **VotV 0.8.x**: Funciona completamente. Usa la carpeta `v0.8.x/`
+- ⚠️ **VotV 0.9.0 alpha**: En investigación. Usa `v0.9.0-alpha/` (experimental, puede no funcionar)
+
+Los backups se crean automáticamente antes de cualquier modificación.
 
 ## 🎮 Sobre Voices of the Void
 
