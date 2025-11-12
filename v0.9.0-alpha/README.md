@@ -1,20 +1,20 @@
-# VotV Points Editor - Versión 0.9.0 Alpha (EXPERIMENTAL)
+# VotV Points Editor - Version 0.9.0 Alpha (EXPERIMENTAL)
 
 Editor de puntos para **Voices of the Void Alpha 0.9.0** - EN DESARROLLO
 
-## ⚠️ Estado: EXPERIMENTAL / NO FUNCIONAL
+## Estado: EXPERIMENTAL / NO FUNCIONAL
 
-**IMPORTANTE**: Esta versión es **EXPERIMENTAL** y actualmente **NO funciona completamente**.
+**IMPORTANTE**: Esta version es **EXPERIMENTAL** y actualmente **NO funciona completamente**.
 
-### 🔍 Problema Conocido
+### Problema Conocido
 
-La versión 0.9.0 alpha (UNSTABLE) de Voices of the Void cambió la estructura de guardado:
+La version 0.9.0 alpha (UNSTABLE) de Voices of the Void cambio la estructura de guardado:
 
-- ✅ `data.sav` se puede modificar (mismo formato que 0.8.x)
-- ❌ Los archivos de partida (`s_*.sav`) tienen estructura desconocida
-- ❌ Los puntos NO se reflejan en el juego al cargar partidas
+- `data.sav` se puede modificar (mismo formato que 0.8.x)
+- Los archivos de partida (`s_*.sav`) tienen estructura desconocida
+- Los puntos NO se reflejan en el juego al cargar partidas
 
-### 📊 Investigación en Curso
+### Investigacion en Curso
 
 Estamos investigando cómo se almacenan los puntos en los archivos de save de 0.9.0 alpha.
 
@@ -28,7 +28,7 @@ Estamos investigando cómo se almacenan los puntos en los archivos de save de 0.
 - Cómo se serializan las propiedades en el nuevo formato
 - Si el juego lee desde `data.sav` o desde los archivos individuales
 
-## 🧪 Script Experimental
+## Script Experimental
 
 ### `set_puntos_v09.py`
 
@@ -47,7 +47,7 @@ python set_puntos_v09.py 50000
     Los puntos pueden NO reflejarse en el juego.
 ```
 
-## 🤝 ¿Puedes Ayudar?
+## Puedes Ayudar?
 
 Si tienes conocimientos de:
 - Ingeniería inversa de formatos de guardado
@@ -56,14 +56,14 @@ Si tienes conocimientos de:
 
 ¡Tu ayuda sería muy valiosa! Abre un issue en GitHub con cualquier descubrimiento.
 
-## 💡 Solución Temporal
+## Solucion Temporal
 
 **Si quieres usar el editor de puntos**:
 1. Descarga VotV Alpha 0.8.2c (versión estable anterior)
 2. Usa la versión del editor en la carpeta `v0.8.x/`
 3. Funciona perfectamente con 0.8.x
 
-## 📝 Para Desarrolladores
+## Para Desarrolladores
 
 Si quieres investigar la estructura de v0.9:
 
@@ -81,7 +81,7 @@ Herramientas útiles:
 - UE4 Save Game readers
 - Binary diff tools
 
-## 🔙 Recomendación
+## Recomendacion
 
 **Por ahora, usa la versión 0.8.x del editor** que funciona perfectamente.
 

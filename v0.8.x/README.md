@@ -1,12 +1,12 @@
-# VotV Points Editor - Versión 0.8.x
+# VotV Points Editor - Version 0.8.x
 
 Editor de puntos para **Voices of the Void Alpha 0.8.x** - Totalmente funcional y probado.
 
-## ✅ Estado: ESTABLE
+## Estado: ESTABLE
 
-Esta versión funciona perfectamente con todos los archivos de guardado de VotV 0.8.x.
+Esta version funciona perfectamente con todos los archivos de guardado de VotV 0.8.x.
 
-## 🚀 Uso Rápido
+## Uso Rapido
 
 ### Windows (más fácil)
 Doble click en:
@@ -23,16 +23,16 @@ python set_puntos.py 50000
 python set_puntos.py
 ```
 
-## 📋 Scripts Disponibles
+## Scripts Disponibles
 
-- **`set_puntos.py`**: Script principal (recomendado) ⭐
-- **`modificar_puntos.py`**: Versión interactiva con menú
-- **`buscar_puntos_todos_saves.py`**: Diagnóstico y verificación
-- **`set_puntos_todos_saves.py`**: Versión alternativa standalone
-- **`PRUEBA_RAPIDA.bat`**: Acceso rápido Windows
-- **`VERIFICAR_PUNTOS.bat`**: Verificación rápida
+- **`set_puntos.py`**: Script principal (recomendado)
+- **`modificar_puntos.py`**: Version interactiva con menu
+- **`buscar_puntos_todos_saves.py`**: Diagnostico y verificacion
+- **`set_puntos_todos_saves.py`**: Version alternativa standalone
+- **`PRUEBA_RAPIDA.bat`**: Acceso rapido Windows
+- **`VERIFICAR_PUNTOS.bat`**: Verificacion rapida
 
-## 🎯 Cómo Funciona
+## Como Funciona
 
 Voices of the Void 0.8.x almacena los puntos en **DOS ubicaciones**:
 
@@ -46,13 +46,13 @@ Voices of the Void 0.8.x almacena los puntos en **DOS ubicaciones**:
 
 El script modifica **AMBOS** para asegurar sincronización perfecta.
 
-## ⚠️ Importante
+## Importante
 
 - **Cierra el juego** antes de modificar
-- Los backups se crean automáticamente en `SaveGames/backups/`
+- Los backups se crean automaticamente en `SaveGames/backups/`
 - Compatible SOLO con VotV 0.8.x
 
-## 📖 Ejemplos
+## Ejemplos
 
 ```bash
 # Inicio del juego
@@ -65,7 +65,7 @@ python set_puntos.py 50000
 python set_puntos.py 500000
 ```
 
-## 🔙 Volver
+## Volver
 
-Ver [README principal](../README.md) para más información.
+Ver [README principal](../README.md) para mas informacion.
 
