@@ -20,14 +20,14 @@ Este proyecto esta organizado en dos versiones segun la version de VotV que uses
 
 **[IR A v0.8.x](v0.8.x/)**
 
-### [Version 0.9.0 Alpha](v0.9.0-alpha/) - EXPERIMENTAL
-- **Estado**: EXPERIMENTAL / NO FUNCIONAL
+### [Version 0.9.0 Alpha](v0.9.0-alpha/) - FUNCIONAL ✅
+- **Estado**: COMPLETAMENTE FUNCIONAL
 - **Compatible con**: VotV Alpha 0.9.0 (UNSTABLE)
-- **Problema**: 
-  - La estructura de guardado cambio completamente
-  - Solo modifica `data.sav`
-  - Los puntos NO se reflejan en el juego
-  - En investigacion
+- **Caracteristicas**: 
+  - Modifica `data.sav` y todos los archivos de partida
+  - Los cambios se reflejan correctamente en el juego
+  - Probado hasta 2,000,000 puntos
+  - Offset descubierto: 0x0000071a
 
 **[IR A v0.9.0-alpha](v0.9.0-alpha/)**
 
@@ -37,7 +37,7 @@ Una herramienta simple y segura para modificar los puntos del jugador en Voices 
 
 **Si tienes VotV 0.8.x** → Usa la [versión 0.8.x](v0.8.x/) que funciona perfectamente.
 
-**Si tienes VotV 0.9.0 alpha** → Por ahora, considera usar VotV 0.8.2c o espera a que investiguemos el nuevo formato.
+**Si tienes VotV 0.9.0 alpha** → Usa la [versión 0.9.0-alpha](v0.9.0-alpha/) que ahora funciona completamente.
 
 ## Caracteristicas (v0.8.x)
 
@@ -84,16 +84,16 @@ python set_puntos.py 50000
 
 **[Documentacion completa v0.8.x](v0.8.x/README.md)**
 
-### Para VotV 0.9.0 alpha (EXPERIMENTAL)
+### Para VotV 0.9.0 alpha (FUNCIONAL ✅)
 
 ```bash
 cd v0.9.0-alpha
 
-# Script experimental (solo modifica data.sav)
-python set_puntos_v09.py 50000
+# Script funcional (modifica data.sav y todos los s_*.sav)
+python set_puntos.py 50000
 ```
 
-**ADVERTENCIA**: Los cambios pueden NO reflejarse en el juego.
+**CONFIRMADO**: Los cambios se reflejan correctamente en el juego.
 
 **[Documentacion completa v0.9.0](v0.9.0-alpha/README.md)**
 
@@ -140,9 +140,15 @@ VotV-Points-Editor/
 │   ├── VERIFICAR_PUNTOS.bat            # Windows: Verificar
 │   └── README.md                       # Documentacion v0.8.x
 │
-├── v0.9.0-alpha/                    # VERSION EXPERIMENTAL
-│   ├── set_puntos_v09.py               # Script experimental
-│   └── README.md                       # Documentacion v0.9.0
+├── v0.9.0-alpha/                    # VERSION FUNCIONAL ✅
+│   ├── set_puntos.py                   # Script principal (FUNCIONAL)
+│   ├── README.md                       # Documentacion v0.9.0
+│   └── investigacion/                  # Scripts de investigacion
+│       ├── buscar_valor_107.py
+│       ├── buscar_52_con_contexto.py
+│       ├── modificar_todos_los_52.py
+│       ├── investigar_v09.py
+│       └── INVESTIGACION.md            # Proceso de descubrimiento
 │
 ├── README.md                        # Este archivo (indice)
 ├── LICENSE                          # Licencia MIT
@@ -152,8 +158,8 @@ VotV-Points-Editor/
 
 ### Carpetas:
 
-- **`v0.8.x/`**: Version totalmente funcional para VotV 0.8.x
-- **`v0.9.0-alpha/`**: Version experimental para VotV 0.9.0 (en desarrollo)
+- **`v0.8.x/`**: Version totalmente funcional para VotV 0.8.x ✅
+- **`v0.9.0-alpha/`**: Version totalmente funcional para VotV 0.9.0 ✅ (offset descubierto: 0x0000071a)
 
 ## Contribuir
 
@@ -178,8 +184,8 @@ Este proyecto es una herramienta de terceros **no oficial**. No está afiliado, 
 Usa esta herramienta bajo tu propio riesgo. Siempre haz backups de tus archivos de guardado.
 
 **Compatibilidad de Versiones**:
-- **VotV 0.8.x**: Funciona completamente. Usa la carpeta `v0.8.x/`
-- **VotV 0.9.0 alpha**: En investigacion. Usa `v0.9.0-alpha/` (experimental, puede no funcionar)
+- **VotV 0.8.x**: ✅ Funciona completamente. Usa la carpeta `v0.8.x/`
+- **VotV 0.9.0 alpha**: ✅ Funciona completamente. Usa `v0.9.0-alpha/` (offset: 0x0000071a, probado hasta 2M puntos)
 
 Los backups se crean automaticamente antes de cualquier modificacion.
 

@@ -1,130 +1,208 @@
-# VotV Points Editor - Version 0.9.0 Alpha (EXPERIMENTAL)
+# VotV Points Editor - Version 0.9.0 Alpha
 
-Editor de puntos para **Voices of the Void Alpha 0.9.0** - EN DESARROLLO
+Editor de puntos para **Voices of the Void Alpha 0.9.0** ✅ **FUNCIONAL**
 
-## Estado: EXPERIMENTAL / NO FUNCIONAL
+## ✅ Estado: COMPLETAMENTE FUNCIONAL
 
-**IMPORTANTE**: Esta version es **EXPERIMENTAL** y actualmente **NO funciona completamente**.
+**¡RESUELTO!** El offset de los puntos en VotV 0.9.0 fue descubierto y confirmado.
 
-### Problema Conocido
+- **Offset**: `0x0000071a`
+- **Tipo**: `IntProperty` (4 bytes, little-endian)
+- **Propiedad**: `"Points"`
+- **Probado hasta**: 2,000,000 puntos ✅
 
-La version 0.9.0 alpha (UNSTABLE) de Voices of the Void cambio la estructura de guardado:
-
-- `data.sav` se puede modificar (mismo formato que 0.8.x)
-- Los archivos de partida (`s_*.sav`) tienen estructura desconocida
-- Los puntos NO se reflejan en el juego al cargar partidas
-
-### Investigacion en Curso
-
-**HALLAZGO CLAVE**: Se confirmo que la estructura cambio completamente.
-
-**v0.8.x**:
-- Propiedad `Points` existe como `IntProperty` en offset predecible
-- Modificable directamente
-
-**v0.9.0 alpha**:
-- La propiedad `Points` NO EXISTE en el formato de guardado
-- La palabra solo aparece en textos descriptivos
-- Estructura completamente reorganizada
-
-**Teoria principal**: Los puntos se movieron a:
-1. Una estructura compleja (StructProperty anidado)
-2. Nombre de variable diferente (Currency, Money, Score)
-3. GameInstance en vez de SaveGame
-4. Sistema de guardado separado
-
-Ver [INVESTIGACION.md](INVESTIGACION.md) para analisis tecnico completo.
-
-## Script Experimental
-
-### `set_puntos_v09.py`
-
-Este script **SOLO modifica `data.sav`** pero los cambios probablemente **NO se reflejarán** en el juego.
-
-```bash
-python set_puntos_v09.py 50000
-```
-
-**Salida esperada**:
-```
-[EXITO] data.sav modificado!
-
-⚠️  ADVERTENCIA: Los archivos de partida de v0.9.0 alpha
-    tienen estructura desconocida y NO fueron modificados.
-    Los puntos pueden NO reflejarse en el juego.
-```
-
-## Puedes Ayudar?
-
-Si tienes conocimientos de:
-- Ingeniería inversa de formatos de guardado
-- Unreal Engine save files
-- Serialización binaria
-
-¡Tu ayuda sería muy valiosa! Abre un issue en GitHub con cualquier descubrimiento.
-
-## Solucion Temporal
-
-**Si quieres usar el editor de puntos**:
-1. Descarga VotV Alpha 0.8.2c (versión estable anterior)
-2. Usa la versión del editor en la carpeta `v0.8.x/`
-3. Funciona perfectamente con 0.8.x
-
-## Herramientas de Investigacion
-
-### investigar_v09.py
-
-Script de analisis que examina la estructura interna de archivos .sav:
-
-```bash
-# Analizar archivo de v0.9
-python investigar_v09.py
-
-# Analizar archivo especifico
-python investigar_v09.py "C:\ruta\al\archivo.sav"
-
-# Comparar con v0.8
-python investigar_v09.py "C:\...\s_1.sav"
-```
-
-**Que hace**:
-- Hexdump de primeros bytes
-- Busca strings ASCII relevantes
-- Identifica propiedades IntProperty
-- Analiza estructura GVAS de Unreal Engine
-- Compara patrones entre v0.8 y v0.9
-
-## Para Desarrolladores
-
-**Archivos de save**:
-```
-C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
-```
-
-**Archivos del juego**:
-```
-[Instalacion]\WindowsNoEditor\
-```
-
-**Herramientas recomendadas**:
-- HxD / 010 Editor (hex editors)
-- UE4 SaveGame readers
-- Cheat Engine (memory scanning)
-- Binary diff tools
-- UAssetGUI (para archivos .pak)
-
-**Documentacion**:
-- [INVESTIGACION.md](INVESTIGACION.md) - Analisis tecnico completo
-- [investigar_v09.py](investigar_v09.py) - Script de analisis
-
-## Recomendacion
-
-**Por ahora, usa la versión 0.8.x del editor** que funciona perfectamente.
-
-Ver [v0.8.x/README.md](../v0.8.x/README.md)
+![2 millones de puntos funcionando](https://img.shields.io/badge/Tested-2M_points-success)
 
 ---
 
-**Estado actualizado**: 12 de noviembre de 2025  
-**Contribuciones**: Bienvenidas en [GitHub Issues](https://github.com/JackStar6677-1/VotV-Points-Editor/issues)
+## 🚀 Uso Rápido
 
+### Modificar puntos
+
+```bash
+python set_puntos.py 50000
+```
+
+**Ejemplos:**
+
+```bash
+# 50,000 puntos
+python set_puntos.py 50000
+
+# 500 puntos
+python set_puntos.py 500
+
+# 2 millones (probado y funcional)
+python set_puntos.py 2000000
+```
+
+---
+
+## 📋 Características
+
+✅ Modifica `data.sav` (perfil global)  
+✅ Modifica todos los archivos de partida `s_*.sav`  
+✅ Crea backups automáticos en `SaveGames/backups/`  
+✅ Verifica cambios antes de escribir  
+✅ Soporte para valores de 0 hasta 2,000,000+ puntos
+
+---
+
+## ⚙️ Cómo Funciona
+
+### Descubrimiento del Offset
+
+El offset de los puntos en VotV 0.9.0 fue descubierto mediante:
+
+1. **Comparación de saves**: Se compararon dos archivos con diferentes cantidades de puntos (52 vs duplicado)
+2. **Búsqueda de contexto**: Se buscó la propiedad `"Points"` en el archivo binario
+3. **Validación**: Se confirmó que el offset `0x0000071a` contiene el valor correcto
+4. **Pruebas exhaustivas**: Se probaron valores desde 500 hasta 2,000,000 puntos
+
+### Estructura del Save
+
+```
+Offset 0x000006f6: "Points\x00"
+Offset 0x00000701: "IntProperty"
+Offset 0x0000071a: [4 bytes] Valor de los puntos (little-endian)
+                    ^^^^^^^^
+                    ESTE ES EL OFFSET CORRECTO
+```
+
+---
+
+## 🔧 Scripts Disponibles
+
+### `set_puntos.py` ⭐ (Principal)
+
+Modifica los puntos en `data.sav` y todos los archivos `s_*.sav`
+
+```bash
+python set_puntos.py <cantidad_puntos>
+```
+
+**Salida:**
+```
+======================================================================
+  VotV Points Editor - Version 0.9.0 ALPHA
+======================================================================
+  Puntos a establecer: 50,000
+  Directorio: C:\Users\...\SaveGames
+  Offset: 0x0000071a
+======================================================================
+
+[1] Modificando data.sav (perfil global)...
+  [BACKUP] data.sav.backup_20251112_135012
+  [OK] data.sav: 62 -> 50000
+
+[2] Modificando archivos de partida individuales (3 encontrados)...
+  [BACKUP] s_09colege.sav.backup_20251112_135012
+  [OK] s_09colege.sav: 62 -> 50000
+  [BACKUP] s_09colege_0.sav.backup_20251112_135013
+  [OK] s_09colege_0.sav: 52 -> 50000
+  [BACKUP] s_testpoints.sav.backup_20251112_135013
+  [OK] s_testpoints.sav: 107 -> 50000
+
+  Total: 3 modificados, 0 omitidos
+
+======================================================================
+  PROCESO COMPLETADO
+======================================================================
+
+  Los backups se guardaron en:
+  C:\Users\...\SaveGames\backups
+
+  Carga el juego para verificar los cambios
+======================================================================
+```
+
+---
+
+## 📂 Estructura del Proyecto
+
+```
+v0.9.0-alpha/
+│
+├── set_puntos.py              # ⭐ Script principal (FUNCIONAL)
+├── README.md                  # Este archivo
+│
+└── investigacion/             # Scripts de investigación
+    ├── buscar_valor_107.py
+    ├── buscar_52_con_contexto.py
+    ├── modificar_todos_los_52.py
+    ├── investigar_v09.py
+    ├── comparar_saves.py
+    ├── buscar_cambio_107_109.py
+    ├── analizar_contexto_puntos.py
+    ├── comparar_colege_62pts.py
+    ├── buscar_points_manual.py
+    ├── modificar_points_offset_exacto.py
+    └── INVESTIGACION.md       # Documentación del proceso
+```
+
+---
+
+## 🔍 Proceso de Investigación
+
+El descubrimiento del offset tomó múltiples intentos:
+
+1. ❌ Búsqueda inicial falló (offset incorrecto)
+2. ❌ Modificación de 107 a 5000 corrompió el save
+3. ✅ Comparación de saves con 52 puntos encontró 356 ocurrencias
+4. ✅ Búsqueda de contexto identificó 2 candidatos con "Points" cerca
+5. ✅ Prueba con 500 puntos en offset `0x0000071a` funcionó
+6. ✅ Confirmación con 2,000,000 puntos exitosa
+
+Ver [`investigacion/INVESTIGACION.md`](investigacion/INVESTIGACION.md) para detalles técnicos completos.
+
+---
+
+## 🛡️ Backups
+
+Todos los archivos modificados se respaldan automáticamente:
+
+**Ubicación**: `C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\backups\`
+
+**Formato**: `archivo.sav.backup_YYYYMMDD_HHMMSS`
+
+### Restaurar un Backup
+
+```bash
+# PowerShell
+copy "SaveGames\backups\s_09colege_0.sav.backup_20251112_135013" "SaveGames\s_09colege_0.sav"
+```
+
+---
+
+## ⚠️ Limitaciones Conocidas
+
+- ✅ Valores hasta **2,000,000** confirmados funcionales
+- ⚠️ Valores superiores no han sido probados
+- ⚠️ Valores negativos no están permitidos
+
+---
+
+## 🤝 Contribuciones
+
+Si encuentras problemas o mejoras:
+
+1. Prueba con diferentes cantidades de puntos
+2. Verifica si funciona con otros saves
+3. Reporta en [GitHub Issues](https://github.com/JackStar6677-1/VotV-Points-Editor/issues)
+
+---
+
+## 📝 Changelog
+
+**12 de Noviembre de 2025**:
+- ✅ **DESCUBIERTO** el offset correcto: `0x0000071a`
+- ✅ Script principal `set_puntos.py` creado y probado
+- ✅ Confirmado funcionamiento con 500, 10K, 50K, 500K, 2M puntos
+- ✅ Backups automáticos implementados
+- ✅ Documentación completa del proceso
+
+---
+
+**Estado**: ✅ Completamente funcional  
+**Última actualización**: 12 de noviembre de 2025  
+**Contribuciones**: Bienvenidas en [GitHub](https://github.com/JackStar6677-1/VotV-Points-Editor)
