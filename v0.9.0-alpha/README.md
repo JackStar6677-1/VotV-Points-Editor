@@ -16,17 +16,24 @@ La version 0.9.0 alpha (UNSTABLE) de Voices of the Void cambio la estructura de 
 
 ### Investigacion en Curso
 
-Estamos investigando cómo se almacenan los puntos en los archivos de save de 0.9.0 alpha.
+**HALLAZGO CLAVE**: Se confirmo que la estructura cambio completamente.
 
-**Lo que sabemos**:
-- Los archivos de partida de v0.9 NO tienen la propiedad `Points` que existía en v0.8
-- El formato de serialización cambió completamente
-- Posiblemente usan un sistema diferente de almacenamiento de datos
+**v0.8.x**:
+- Propiedad `Points` existe como `IntProperty` en offset predecible
+- Modificable directamente
 
-**Lo que necesitamos descubrir**:
-- Dónde están los puntos en los archivos `s_*.sav` de v0.9
-- Cómo se serializan las propiedades en el nuevo formato
-- Si el juego lee desde `data.sav` o desde los archivos individuales
+**v0.9.0 alpha**:
+- La propiedad `Points` NO EXISTE en el formato de guardado
+- La palabra solo aparece en textos descriptivos
+- Estructura completamente reorganizada
+
+**Teoria principal**: Los puntos se movieron a:
+1. Una estructura compleja (StructProperty anidado)
+2. Nombre de variable diferente (Currency, Money, Score)
+3. GameInstance en vez de SaveGame
+4. Sistema de guardado separado
+
+Ver [INVESTIGACION.md](INVESTIGACION.md) para analisis tecnico completo.
 
 ## Script Experimental
 
@@ -63,23 +70,52 @@ Si tienes conocimientos de:
 2. Usa la versión del editor en la carpeta `v0.8.x/`
 3. Funciona perfectamente con 0.8.x
 
-## Para Desarrolladores
+## Herramientas de Investigacion
 
-Si quieres investigar la estructura de v0.9:
+### investigar_v09.py
+
+Script de analisis que examina la estructura interna de archivos .sav:
 
 ```bash
-# Los archivos de save están en:
-C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
+# Analizar archivo de v0.9
+python investigar_v09.py
 
-# Archivos clave:
-- data.sav (global, modificable)
-- s_*.sav (archivos de partida v0.9, estructura desconocida)
+# Analizar archivo especifico
+python investigar_v09.py "C:\ruta\al\archivo.sav"
+
+# Comparar con v0.8
+python investigar_v09.py "C:\...\s_1.sav"
 ```
 
-Herramientas útiles:
-- Hex editor (HxD, 010 Editor)
-- UE4 Save Game readers
+**Que hace**:
+- Hexdump de primeros bytes
+- Busca strings ASCII relevantes
+- Identifica propiedades IntProperty
+- Analiza estructura GVAS de Unreal Engine
+- Compara patrones entre v0.8 y v0.9
+
+## Para Desarrolladores
+
+**Archivos de save**:
+```
+C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
+```
+
+**Archivos del juego**:
+```
+[Instalacion]\WindowsNoEditor\
+```
+
+**Herramientas recomendadas**:
+- HxD / 010 Editor (hex editors)
+- UE4 SaveGame readers
+- Cheat Engine (memory scanning)
 - Binary diff tools
+- UAssetGUI (para archivos .pak)
+
+**Documentacion**:
+- [INVESTIGACION.md](INVESTIGACION.md) - Analisis tecnico completo
+- [investigar_v09.py](investigar_v09.py) - Script de analisis
 
 ## Recomendacion
 
