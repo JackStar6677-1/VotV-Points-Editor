@@ -97,6 +97,25 @@ python set_puntos.py 50000
 
 **[Documentacion completa v0.9.0](v0.9.0-alpha/README.md)**
 
+## Utilidades de Backups
+
+Scripts para gestionar tus backups de forma segura (funciona con cualquier usuario):
+
+```bash
+cd utilidades-backups
+
+# Listar todos los backups
+python listar_backups.py
+
+# Restaurar un backup (menu interactivo)
+python restaurar_backup.py
+
+# Limpiar backups antiguos
+python limpiar_backups_antiguos.py
+```
+
+**[Documentacion completa de utilidades](utilidades-backups/README.md)**
+
 ## Como funciona (v0.8.x)
 
 Para mas detalles tecnicos, consulta el README de cada version:
@@ -150,6 +169,12 @@ VotV-Points-Editor/
 │       ├── investigar_v09.py
 │       └── INVESTIGACION.md            # Proceso de descubrimiento
 │
+├── utilidades-backups/              # GESTION DE BACKUPS
+│   ├── listar_backups.py               # Listar backups disponibles
+│   ├── restaurar_backup.py             # Restaurar backups (interactivo)
+│   ├── limpiar_backups_antiguos.py     # Limpiar backups viejos
+│   └── README.md                       # Documentacion de utilidades
+│
 ├── README.md                        # Este archivo (indice)
 ├── LICENSE                          # Licencia MIT
 ├── requirements.txt                 # Sin dependencias externas
@@ -160,6 +185,7 @@ VotV-Points-Editor/
 
 - **`v0.8.x/`**: Version totalmente funcional para VotV 0.8.x ✅
 - **`v0.9.0-alpha/`**: Version totalmente funcional para VotV 0.9.0 ✅ (offset descubierto: 0x0000071a)
+- **`utilidades-backups/`**: Scripts para gestionar backups (listar, restaurar, limpiar) - Funciona con cualquier usuario
 
 ## Contribuir
 
@@ -210,4 +236,12 @@ Si tienes preguntas o sugerencias, abre un issue en GitHub.
 ---
 
 **Disfruta tu partida con todos los puntos que necesites!**
+
+---
+
+## 🏷️ Tags / Keywords
+
+`Voices of the Void` `VotV` `save editor` `save game editor` `points editor` `editor de puntos` `mrdrnose` `VotV mod` `VotV tools` `VotV save file` `VotV hack` `VotV cheats` `VotV trainer` `game save editor` `Unreal Engine save editor` `VotV 0.8` `VotV 0.9` `VotV alpha` `horror game` `simulation game` `signal simulator` `space game` `observatory game` `VotV español` `VotV tutorial` `VotV guide` `VotV modding` `save game modifier` `binary save editor` `GVAS save` `Unreal save format` `VotV points hack` `VotV unlimited points` `VotV money editor` `VotV currency editor` `game memory editor` `VotV utility` `VotV helper` `save file backup` `VotV backup tool` `Python save editor` `cross platform save editor`
+
+**Related searches**: How to edit VotV saves, VotV save location, VotV save file editor, VotV points cheat, VotV trainer download, VotV mod tools, VotV save game location Windows, VotV AppData saves, VotV backup saves, VotV restore save, VotV corrupt save fix, VotV save editor 2025, Voices of the Void cheats, Voices of the Void save editor, Voices of the Void points, Voices of the Void mods, VotV alpha 0.8 save editor, VotV alpha 0.9 save editor
 
