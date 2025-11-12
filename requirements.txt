@@ -1,0 +1,10 @@
+# Este proyecto no requiere dependencias externas
+# Solo usa librerías estándar de Python 3.7+
+# 
+# Librerías estándar utilizadas:
+# - struct: Para manejo de datos binarios
+# - os: Para operaciones de archivos
+# - shutil: Para copiar archivos (backups)
+# - sys: Para argumentos de línea de comandos
+# - datetime: Para timestamps en backups
+
