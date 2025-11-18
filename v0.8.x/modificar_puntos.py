@@ -212,7 +212,8 @@ def modificar_puntos(archivo, nuevo_total=None, nuevo_spent=None):
 
 def mostrar_menu():
     """Muestra el menú interactivo"""
-    archivo = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames\data.sav"
+    saves_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "VotV", "Saved", "SaveGames")
+    archivo = os.path.join(saves_dir, "data.sav")
     
     print("="*60)
     print("  MODIFICADOR DE PUNTOS - VOICE OF THE VOID")

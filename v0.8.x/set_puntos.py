@@ -182,7 +182,8 @@ def establecer_puntos_disponibles(archivo, puntos_disponibles):
     return True
 
 if __name__ == "__main__":
-    archivo = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames\data.sav"
+    saves_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "VotV", "Saved", "SaveGames")
+    archivo = os.path.join(saves_dir, "data.sav")
     
     print("="*60)
     print("  MODIFICADOR DE PUNTOS - VOICE OF THE VOID")

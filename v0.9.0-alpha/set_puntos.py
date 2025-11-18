@@ -24,8 +24,8 @@ import shutil
 import glob
 from datetime import datetime
 
-# Ruta base de los saves
-SAVE_DIR = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames"
+# Ruta base de los saves (dinámica según el usuario actual)
+SAVE_DIR = os.path.join(os.path.expanduser("~"), "AppData", "Local", "VotV", "Saved", "SaveGames")
 
 # Offset confirmado para VotV 0.9.0 (propiedad "Points")
 OFFSET_POINTS_V09 = 0x0000071a

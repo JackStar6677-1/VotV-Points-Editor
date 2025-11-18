@@ -123,7 +123,7 @@ def modificar_save_individual(archivo, puntos):
     return True, f"{valor_anterior} -> {puntos}"
 
 def main():
-    saves_dir = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames"
+    saves_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "VotV", "Saved", "SaveGames")
     data_sav = os.path.join(saves_dir, "data.sav")
     
     print("="*70)

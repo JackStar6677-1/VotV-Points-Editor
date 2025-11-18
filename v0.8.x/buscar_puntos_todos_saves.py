@@ -68,7 +68,7 @@ def buscar_propiedades_en_archivo(archivo):
         return {'error': str(e)}
 
 def main():
-    saves_dir = r"C:\Users\JackStar\AppData\Local\VotV\Saved\SaveGames"
+    saves_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "VotV", "Saved", "SaveGames")
     
     print("="*70)
     print("  ANALIZADOR DE PUNTOS EN TODOS LOS ARCHIVOS .SAV")
