@@ -12,9 +12,11 @@ NOTA: Este script ahora modifica:
   2. Todos los archivos de partida s_*.sav (propiedad Points)
   
 MEJORAS:
+  - Detección dinámica del offset de puntos (funciona en cualquier save/máquina)
   - Identifica y prioriza el save activo (mas reciente)
   - Crea backups solo una vez al inicio
   - Corrige calculo de puntos para evitar valores negativos incorrectos
+  - Algoritmo inteligente para encontrar el offset correcto automáticamente
 """
 
 import struct
@@ -65,7 +67,10 @@ def identificar_save_activo(saves_dir):
     return archivos_save[0]
 
 def buscar_propiedad_int(data, nombre_propiedad):
-    """Busca una propiedad IntProperty por nombre y retorna su posición y valor"""
+    """
+    Busca una propiedad IntProperty por nombre y retorna su posición y valor.
+    Versión mejorada que detecta dinámicamente el offset correcto.
+    """
     nombre_bytes = nombre_propiedad.encode('ascii')
     pos_nombre = data.find(nombre_bytes)
     
@@ -82,18 +87,61 @@ def buscar_propiedad_int(data, nombre_propiedad):
     
     abs_int_prop_pos = search_start + int_prop_pos
     
-    for offset in range(12, 25):
+    # Buscar todos los valores candidatos en un rango más amplio
+    # Estructura típica: Points\x00 + tamaño(4) + IntProperty(12) + tamaño_datos(4) + padding(8) + valor(4)
+    # El valor está típicamente entre offset 20-30 desde IntProperty
+    candidatos = []
+    
+    for offset in range(12, 50):
         try:
             pos_valor = abs_int_prop_pos + offset
             if pos_valor + 4 <= len(data):
                 valor = struct.unpack('<i', data[pos_valor:pos_valor + 4])[0]
-                # Permitir valores negativos grandes (hasta -2,147,483,648) y positivos razonables
+                
+                # Filtrar valores que claramente no son puntos:
+                # - Valores que son offsets (muy grandes y positivos, cerca del tamaño del archivo)
+                # - Valores que son tamaños de strings (pequeños, < 100)
+                # - Valores que son parte de otros datos estructurados
+                
+                # Aceptar valores que podrían ser puntos
                 if -2147483648 <= valor <= 2147483647:
-                    return pos_valor, valor
+                    # Calcular score de probabilidad de ser el valor correcto
+                    score = 0
+                    
+                    # Preferir valores en el rango típico de puntos (0 a 10 millones)
+                    if 0 <= valor <= 10000000:
+                        score += 10
+                    # Aceptar valores negativos grandes (pueden ser overflow)
+                    elif valor < 0 and valor > -2147483648:
+                        score += 5
+                    # Preferir offset 20-30 (estructura típica de Unreal)
+                    if 20 <= offset <= 30:
+                        score += 3
+                    # Penalizar valores que parecen offsets (muy grandes)
+                    if valor > 100000000:
+                        score -= 5
+                    # Penalizar valores muy pequeños que podrían ser tamaños
+                    if 0 < valor < 100:
+                        score -= 3
+                    
+                    candidatos.append({
+                        'offset': offset,
+                        'posicion': pos_valor,
+                        'valor': valor,
+                        'score': score
+                    })
         except:
             pass
     
-    return None, None
+    if not candidatos:
+        return None, None
+    
+    # Ordenar por score (mayor primero) y luego por offset (menor primero para desempate)
+    candidatos.sort(key=lambda x: (-x['score'], x['offset']))
+    
+    # Devolver el mejor candidato
+    mejor = candidatos[0]
+    return mejor['posicion'], mejor['valor']
 
 def leer_puntos(archivo):
     """Lee los puntos actuales del archivo data.sav"""
