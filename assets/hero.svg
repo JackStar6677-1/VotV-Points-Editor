@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#14062f"/>
+      <stop offset="60%" stop-color="#070213"/>
+      <stop offset="100%" stop-color="#030109"/>
+    </radialGradient>
+    
+    <!-- Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+    
+    <!-- Purple Gradient -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#581c87"/>
+    </linearGradient>
+
+    <!-- Radar Sweep Gradient -->
+    <linearGradient id="radarSweep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eab308" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#a855f7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#14062f" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes rotateRadar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes blinkSignal {
+      0%, 100% { opacity: 0.1; transform: scale(0.9); }
+      30%, 50% { opacity: 1; transform: scale(1.1); }
+      70% { opacity: 0.3; }
+    }
+    @keyframes pulseCircle {
+      0%, 100% { stroke-opacity: 0.2; }
+      50% { stroke-opacity: 0.7; }
+    }
+    @keyframes starBlink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    .radar-beam {
+      animation: rotateRadar 6s infinite linear;
+      transform-origin: 620px 150px;
+    }
+    .radar-signal {
+      animation: blinkSignal 6s infinite ease-out;
+      transform-origin: center;
+    }
+    .radar-circle {
+      animation: pulseCircle 4s infinite ease-in-out;
+    }
+    .star {
+      animation: starBlink 3s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="url(#bgGrad)"/>
+
+  <!-- Starry Background (Signal Noise) -->
+  <g fill="#ffffff" fill-opacity="0.3">
+    <circle cx="120" cy="50" r="1" class="star" style="animation-delay: 0.5s;"/>
+    <circle cx="210" cy="65" r="2.5" class="star" style="animation-delay: 1.2s;" fill="#fef08a"/>
+    <circle cx="340" cy="220" r="1" class="star" style="animation-delay: 2.1s;"/>
+    <circle cx="80" cy="180" r="2" class="star" style="animation-delay: 0s;" fill="#c084fc"/>
+    <circle cx="480" cy="50" r="1.5" class="star" style="animation-delay: 3s;"/>
+    <circle cx="440" cy="240" r="2" class="star" style="animation-delay: 1.8s;"/>
+  </g>
+
+  <!-- Radar Interface Screen -->
+  <g transform="translate(0, 0)">
+    <!-- Outer Scope Ring -->
+    <circle cx="620" cy="150" r="95" fill="none" stroke="url(#purpleGrad)" stroke-width="2.5" opacity="0.4"/>
+    <circle cx="620" cy="150" r="85" fill="#080214" stroke="url(#purpleGrad)" stroke-width="2"/>
+    
+    <!-- Concentric Grid Circles -->
+    <circle cx="620" cy="150" r="65" fill="none" stroke="url(#purpleGrad)" stroke-width="1" class="radar-circle" stroke-dasharray="4, 6"/>
+    <circle cx="620" cy="150" r="45" fill="none" stroke="url(#purpleGrad)" stroke-width="1" stroke-dasharray="3, 5"/>
+    <circle cx="620" cy="150" r="25" fill="none" stroke="url(#purpleGrad)" stroke-width="1" class="radar-circle" stroke-dasharray="2, 4"/>
+    
+    <!-- Radar Axis Lines -->
+    <line x1="535" y1="150" x2="705" y2="150" stroke="url(#purpleGrad)" stroke-width="0.8" opacity="0.5"/>
+    <line x1="620" y1="65" x2="620" y2="235" stroke="url(#purpleGrad)" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Signal Blips / Anomalies (Blinking when sweep passes over) -->
+  <!-- Signal 1 -->
+  <g transform="translate(650, 100)" class="radar-signal" style="animation-delay: 0.5s;">
+    <circle cx="0" cy="0" r="10" fill="#eab308" opacity="0.3" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="4" fill="#fef08a"/>
+  </g>
+  <!-- Signal 2 -->
+  <g transform="translate(580, 190)" class="radar-signal" style="animation-delay: 2s;">
+    <circle cx="0" cy="0" r="10" fill="#a855f7" opacity="0.3" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="4" fill="#c084fc"/>
+  </g>
+  <!-- Signal 3 (Anomaly) -->
+  <g transform="translate(600, 110)" class="radar-signal" style="animation-delay: 4s;">
+    <circle cx="0" cy="0" r="8" fill="#eab308" opacity="0.3" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="3" fill="#ffffff"/>
+  </g>
+
+  <!-- Rotating Radar Sweep Beam -->
+  <g class="radar-beam">
+    <!-- Sweep Pie Slice -->
+    <path d="M 620 150 L 620 65 A 85 85 0 0 1 705 150 Z" fill="url(#radarSweep)" opacity="0.75"/>
+    <!-- Front Edge Beam -->
+    <line x1="620" y1="150" x2="620" y2="65" stroke="#eab308" stroke-width="2" filter="url(#glow)"/>
+  </g>
+
+  <!-- Typography / Brand Titles -->
+  <g transform="translate(60, 90)">
+    <text x="0" y="0" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#c084fc" letter-spacing="4" opacity="0.9">
+      SIGNAL OBSERVATORY UTILITY
+    </text>
+    <text x="-2" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="800" fill="url(#goldGrad)" letter-spacing="1" filter="url(#glow)">
+      VotV Points Editor
+    </text>
+    <text x="0" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="300" fill="#ffffff" opacity="0.8" letter-spacing="0.5">
+      Editor Seguro de Partidas y Gestor de Backups para Voices of the Void
+    </text>
+  </g>
+
+  <!-- Status / Coordinates Indicator -->
+  <g transform="translate(60, 240)">
+    <circle cx="10" cy="10" r="5" fill="#eab308" filter="url(#glow)" class="star"/>
+    <text x="25" y="14" font-family="monospace" font-size="12" fill="#eab308" font-weight="bold" letter-spacing="1">
+      RADAR: LISTENING [STABLE 0.8.X &amp; UNSTABLE 0.9.0-ALPHA SUPPORT]
+    </text>
+  </g>
+</svg>
