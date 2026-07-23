@@ -130,3 +130,5 @@ Los archivos de respaldo se crean en una subcarpeta interna de guardado: `SaveGa
 
 ## 🛡️ Descargo de Responsabilidad (Disclaimer)
 Este proyecto es una utilidad de terceros no oficial y no está afiliado con mrdrnose ni con los desarrolladores oficiales de Voices of the Void. Utilízala bajo tu propia responsabilidad. El editor realiza copias de seguridad de forma predeterminada antes de modificar bytes para evitar pérdidas de progreso.
+
+<!-- Updated for 2026 active baseline maintenance -->
