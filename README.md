@@ -19,7 +19,7 @@ graph TD
 
     Start([Inicio: Ejecutar Script]) --> TargetCheck{¿Existe archivo de guardado?}
     
-    TargetCheck -- No --> ErrorExit([Fin con Error: Ruta no encontrada])
+    TargetCheck -- No --> ErrorExit([Fin con Error: Path no encontrada])
     
     TargetCheck -- Sí --> BackupStep[Generar copia de seguridad en SaveGames/backups/]
     BackupStep --> CompressStep[Compresión / Copia con prefijo de fecha y hora]
@@ -86,7 +86,7 @@ VotV-Points-Editor/
 
 ## 🚀 Guía de Instalación y Uso Rápido
 
-### Requisitos
+### Prerequisites
 *   Sistema operativo Windows.
 *   Python 3.7 o superior instalado.
 *   Tener partidas guardadas creadas en Voices of the Void.
