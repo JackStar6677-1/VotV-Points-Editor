@@ -4,13 +4,13 @@
   <img src="assets/hero.svg" alt="VotV Points Editor Hero Banner" width="800">
 </p>
 
-Una herramienta de modding local, rápida y segura escrita en Python para editar los puntos del jugador y gestionar copias de seguridad de las partidas en el juego de simulación y horror **[Voices of the Void](https://mrdrnose.itch.io/votv)**.
+Una herramienta de modding local, rápida y segura escrita en Python para editar los puntos del player y gestionar copias de seguridad de las partidas en el juego de simulación y horror **[Voices of the Void](https://mrdrnose.itch.io/votv)**.
 
 ---
 
 ## 🛠️ Flujo Seguro de Modificación y Respaldos
 
-Para evitar corromper las partidas de Unreal Engine (formato binario GVAS), el editor ejecuta un protocolo estricto de seguridad. El siguiente diagrama ilustra el flujo desde la ejecución del comando hasta la confirmación de la escritura física:
+Para evitar corromper las partidas de Unreal Engine (formato binario GVAS), el editor ejecuta un protocolo estricto de seguridad. El siguiente diagrama ilustra el flujo desde la ejecución del command hasta la confirmación de la escritura física:
 
 ```mermaid
 graph TD
@@ -19,7 +19,7 @@ graph TD
 
     Start([Inicio: Ejecutar Script]) --> TargetCheck{¿Existe archivo de guardado?}
     
-    TargetCheck -- No --> ErrorExit([Fin con Error: Path no encontrada])
+    TargetCheck -- No --> ErrorExit([Fin con Error: Ruta no encontrada])
     
     TargetCheck -- Sí --> BackupStep[Generar copia de seguridad en SaveGames/backups/]
     BackupStep --> CompressStep[Compresión / Copia con prefijo de fecha y hora]
@@ -86,20 +86,20 @@ VotV-Points-Editor/
 
 ## 🚀 Guía de Instalación y Uso Rápido
 
-### Requisitos
+### Prerequisites
 *   Sistema operativo Windows.
 *   Python 3.7 o superior instalado.
 *   Tener partidas guardadas creadas en Voices of the Void.
 
 ### Ubicación por Defecto de las Partidas de VotV
-El juego guarda sus partidas en la carpeta local de AppData del usuario:
+El juego guarda sus partidas en la folder local de AppData del user:
 ```text
 C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
 ```
 *Nota: Los scripts del editor detectan esta ruta automáticamente resolviendo la variable de entorno `%LOCALAPPDATA%`.*
 
 ### Modificar Puntos en VotV 0.8.x
-1.  Ingresa a la carpeta `v0.8.x`:
+1.  Ingresa a la folder `v0.8.x`:
     ```powershell
     cd C:\Users\pablo\Documentos\GitHub\VotV-Points-Editor\v0.8.x
     ```
@@ -110,7 +110,7 @@ C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
     *O haz doble clic en `PRUEBA_RAPIDA.bat` para asignarte 50,000 puntos de forma automática.*
 
 ### Modificar Puntos en VotV 0.9.0 Alpha
-1.  Ingresa a la carpeta `v0.9.0-alpha`:
+1.  Ingresa a la folder `v0.9.0-alpha`:
     ```powershell
     cd C:\Users\pablo\Documentos\GitHub\VotV-Points-Editor\v0.9.0-alpha
     ```
@@ -122,7 +122,7 @@ C:\Users\TU_USUARIO\AppData\Local\VotV\Saved\SaveGames\
 ---
 
 ## 👥 Utilidades de Gestión de Backups
-Los archivos de respaldo se crean en una subcarpeta interna de guardado: `SaveGames/backups/`. Si deseas administrar estos respaldos de forma independiente, dirígete a `utilidades-backups/` y utiliza:
+Los files de respaldo se crean en una subcarpeta interna de guardado: `SaveGames/backups/`. Si deseas administrar estos respaldos de forma independiente, dirígete a `utilidades-backups/` y utiliza:
 *   `python listar_backups.py` — Lista los respaldos ordenados cronológicamente.
 *   `python restaurar_backup.py` — Abre un menú interactivo numerado para seleccionar un respaldo y restaurarlo sobreescribiendo el actual.
 
